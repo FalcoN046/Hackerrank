@@ -1,0 +1,341 @@
+
+1)High Security Strings
+
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.function.*;
+import java.util.regex.*;
+import java.util.stream.*;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
+
+class Result {
+
+    /*
+     * Complete the 'getStrength' function below.
+     *
+     * The function is expected to return an INTEGER.
+     * The function accepts following parameters:
+     *  1. STRING password
+     *  2. INTEGER weight_a
+     */
+
+    public static int getStrength(String s, int m) {
+    // Complete the function
+ int sum=0;
+        for(int i=0;i<s.length();i++)
+        {   
+            int j= (int)s.charAt(i);
+            sum=sum+(j-97 + m)%26;
+            }
+            return sum;
+    }
+
+}
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        String password = bufferedReader.readLine();
+
+        int weight_a = Integer.parseInt(bufferedReader.readLine().trim());
+
+        int strength = Result.getStrength(password, weight_a);
+
+        bufferedWriter.write(String.valueOf(strength));
+        bufferedWriter.newLine();
+
+        bufferedReader.close();
+        bufferedWriter.close();
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+2)Maximum Streaks
+
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.function.*;
+import java.util.regex.*;
+import java.util.stream.*;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
+
+class Result {
+
+    /*
+     * Complete the 'getMaxStreaks' function below.
+     *
+     * The function is expected to return an INTEGER_ARRAY.
+     * The function accepts STRING_ARRAY toss as parameter.
+     */
+
+    public static List<Integer> getMaxStreaks(List<String> toss) {
+int head = 0,headmax = 0,tail = 0,tailmax = 0;
+//System.out.println(toss);
+        int n= toss.size();
+for (int i = 0; i < n; i++)
+{
+    if ((toss.get(i)).equals("Heads"))
+    {
+        head = head+1;
+        tail=0;
+    if(head>headmax)
+     {
+    headmax=head;
+     }
+
+    }
+    if((toss.get(i)).equals("Tails"))
+    {
+        tail = tail+1;
+        head=0;
+    if(tail>tailmax)
+     {
+    tailmax=tail;
+     }
+
+    }
+
+
+
+}
+        ArrayList<Integer> a = new ArrayList<Integer>();
+a.add(headmax);
+a.add(tailmax);
+return a;
+    }
+}
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        int tossCount = Integer.parseInt(bufferedReader.readLine().trim());
+
+        List<String> toss = IntStream.range(0, tossCount).mapToObj(i -> {
+            try {
+                return bufferedReader.readLine();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        })
+            .collect(toList());
+
+        List<Integer> ans = Result.getMaxStreaks(toss);
+
+        bufferedWriter.write(
+            ans.stream()
+                .map(Object::toString)
+                .collect(joining(" "))
+            + "\n"
+        );
+
+        bufferedReader.close();
+        bufferedWriter.close();
+    }
+}
+
+
+
+
+3)Determine the Winner
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'getRoundResult' function below.
+#
+# The function is expected to return a STRING.
+# The function accepts following parameters:
+#  1. CHARACTER winning_suit
+#  2. CHARACTER suit1
+#  3. INTEGER number1
+#  4. CHARACTER suit2
+#  5. INTEGER number2
+#
+
+def getRoundResult(winning_suit, suit1, number1, suit2, number2):
+    if suit1 == suit2 and suit1 == winning_suit:
+        if number1 > number2:
+            return "Player 1 wins"
+        elif number2 > number1:
+            return "Player 2 wins"
+    elif suit1 != suit2:
+        if suit1 == winning_suit:
+            return "Player 1 wins"
+        elif suit2 == winning_suit:
+            return "Player 2 wins"
+        elif number1 > number2:
+            return "Player 1 wins"
+        elif number2 > number1:
+            return "Player 2 wins"
+        else:
+            return "Draw"
+    elif suit1 == suit2 and suit1 != winning_suit:
+        if number1 > number2:
+            return "Player 1 wins"
+        elif number2 > number1:
+            return "Player 2 wins"
+        else:
+            return "Draw"
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    winning_suit = input()[0]
+
+    n = int(input().strip())
+
+    for n_itr in range(n):
+        first_multiple_input = input().rstrip().split()
+
+        suit1 = first_multiple_input[0][0]
+
+        number1 = int(first_multiple_input[1])
+
+        suit2 = first_multiple_input[2][0]
+
+        number2 = int(first_multiple_input[3])
+
+        result = getRoundResult(winning_suit, suit1, number1, suit2, number2)
+
+        fptr.write(result + '\n')
+
+    fptr.close()
+
+
+
+
+
+
+
+
+
+
+
+
+infytq:
+
+import java.io.*;
+import java.util.*;
+
+
+public class TestClass {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        PrintWriter wr = new PrintWriter(System.out);
+        int T = Integer.parseInt(br.readLine().trim());
+        for(int t_i=0; t_i<T; t_i++) {
+            int N = Integer.parseInt(br.readLine().trim());
+
+            String out_ = Solve(N);
+            System.out.println(out_);
+         }
+
+         wr.close();
+         br.close();
+    }
+    static String Solve(int N){
+        int sum=0;
+        for(int i=1;i<=N/2;i++)
+        {
+            if(N%i==0)
+            {
+                sum=sum+i;
+            }
+        }
+        if(sum==N)
+        {
+            return"YES";
+        }
+        else{
+          return "NO";  
+        }
+    }
+}
+
+
+
+
+
+
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+ 
+class DistributeWeights {
+    public static int getAnswer(int a[],int low,int high,int count){
+        int mid=low+(high-low)/2;
+        if(low>high){
+            return low;
+        }
+        int i=0;
+        int groups=0;
+        while(i<a.length){
+            int j=i;
+            int sum=0;
+            while(j<a.length&&sum+a[j]<=mid){
+                sum+=a[j];
+                j++;
+            }
+            groups++;
+            i=j;
+            if(groups==count){
+                break;
+            }
+        }
+        if(i<a.length){
+            return getAnswer(a,mid+1,high,count);
+        }
+        else{
+            return getAnswer(a,low,mid-1,count);
+        }
+    }
+    public static void main(String[] args)throws IOException {
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+        int test=Integer.parseInt(br.readLine());
+        while(test--!=0){
+            String line[]=br.readLine().split(" ");
+            int n=Integer.parseInt(line[0]);
+            int m=Integer.parseInt(line[1]);
+            int a[]=new int[n];
+            line=br.readLine().split(" ");
+            int sum=0;
+            for(int i=0;i<n;i++){
+                a[i]=Integer.parseInt(line[i]);
+                sum+=a[i];
+            }
+            System.out.println(getAnswer(a,1,sum,m));
+        }
+    }
+}
+
